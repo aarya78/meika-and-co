@@ -158,36 +158,6 @@ export default function Hero() {
                     </AnimatePresence>
                 </div>
             </div>
-
-            {/* Indicators */}
-            <div
-                className="
-          absolute
-          bottom-10
-          left-1/2
-          z-20
-          flex
-          -translate-x-1/2
-          gap-3
-        "
-            >
-                {heroSlides.map((_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => setCurrent(index)}
-                        className={`
-              h-2
-              rounded-full
-              transition-all
-              duration-300
-              ${current === index
-                                ? "w-10 bg-white"
-                                : "w-2 bg-white/40"
-                            }
-            `}
-                    />
-                ))}
-            </div>
         </section>
     );
 }
