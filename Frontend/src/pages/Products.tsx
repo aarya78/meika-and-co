@@ -7,6 +7,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useCategories } from "@/hooks/useCategories";
 import { useProducts } from "@/hooks/useProducts";
 import { getPrimaryProductThumbnail } from "@/services/productService";
+import SEO from '@/components/SEO'
 
 function ProductsSkeleton() {
   return (
@@ -106,7 +107,13 @@ export default function Products() {
   }
 
   return (
-    <section className="min-h-screen overflow-x-hidden bg-[#FFF9F5] py-10 sm:py-16">
+    <>
+      <SEO
+        title="Products"
+        description="Browse handmade fabric and crochet dolls at Meika & Co. Find personalized and custom dolls perfect for gifts across India."
+        pathname="/products"
+      />
+      <section className="min-h-screen overflow-x-hidden bg-[#FFF9F5] py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="text-center">
           <span className="rounded-full border border-[#d9b8a1] bg-[#fff1e8] px-3 py-1.5 text-xs text-[#c96f4f] sm:px-4 sm:py-2 sm:text-sm">
@@ -184,6 +191,8 @@ export default function Products() {
                   <img
                     src={thumbnail.url}
                     alt={product.name}
+                    loading="lazy"
+                    decoding="async"
                     className="aspect-[0.88] w-full object-cover transition duration-700 group-hover:scale-110 sm:aspect-[0.94]"
                   />
 

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Sleepy Dino",
+    "slug": "sleepy-dino"
+  },
+  {
+    "id": 2,
+    "name": "Tiny Bunny",
+    "slug": "tiny-bunny"
+  },
+  {
+    "id": 3,
+    "name": "Lazy Lion",
+    "slug": "lazy-lion"
+  },
+  {
+    "id": 4,
+    "name": "Custom Princess",
+    "slug": "custom-princess"
+  }
+]

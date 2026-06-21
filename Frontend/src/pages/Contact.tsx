@@ -14,6 +14,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+import SEO from "@/components/SEO";
 
 import { useSettings } from "@/contexts/SettingsContext";
 import { submitContactForm } from "@/services/contactService";
@@ -55,6 +56,19 @@ const faqs = [
       "WhatsApp is usually the fastest for quick questions, while email is great if you want to share a little more detail.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.answer,
+    },
+  })),
+};
 
 function normalizeWhatsappNumber(value: string) {
   return value.replace(/[^\d]/g, "");
@@ -383,6 +397,13 @@ export default function Contact() {
   }
 
   return (
+    <>
+      <SEO
+        title="Contact"
+        description="Get in touch with Meika & Co for custom handmade dolls, orders and gifting enquiries. Fast WhatsApp support and personalised service."
+        pathname="/contact"
+        schema={faqSchema}
+      />
     <div className="bg-[#fdf6f0]">
       <section className="relative overflow-hidden px-6 pb-10 pt-16 sm:pt-20">
         <div className="mx-auto max-w-7xl">
@@ -666,5 +687,6 @@ export default function Contact() {
         onDismiss={(id) => setToasts((current) => current.filter((toast) => toast.id !== id))}
       />
     </div>
+    </>
   );
 }

@@ -5,6 +5,7 @@ import Products from "./pages/Products";
 import Layout from "./components/layout/Layout";
 import ProductDetails from "./pages/ProductDetails";
 import Contact from "./pages/Contact";
+import NotFound from "./pages/NotFound";
 import AdminLayout from "./admin/AdminLayout";
 import AdminProducts from "./admin/components/AdminProducts";
 import Categories from "./admin/components/Categories";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route element={<PublicRoute />}>

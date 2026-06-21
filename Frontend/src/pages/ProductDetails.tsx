@@ -17,6 +17,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { fetchProductById, type Product } from "@/services/productService";
 import { useSettings } from "@/contexts/SettingsContext";
+import SEO from '@/components/SEO'
 
 function ProductDetailsSkeleton() {
   return (
@@ -153,8 +154,31 @@ export default function ProductDetails() {
       </section>
     );
   }
+  const productSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product.name,
+    "description": product.description,
+    "sku": product.id?.toString?.() ?? undefined,
+    "image": product.media.map((m) => m.url),
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "INR",
+      "price": product.salePrice ?? product.price,
+      "availability": product.isActive ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "url": window.location.href,
+    },
+  };
 
   return (
+    <>
+      <SEO
+        title={product.name}
+        description={product.description}
+        image={selectedMedia?.url}
+        pathname={`/products/${product.id}`}
+        schema={productSchema}
+      />
     <section className="min-h-screen overflow-x-hidden bg-[#fdf6f0] py-14 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="grid gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
@@ -185,6 +209,7 @@ export default function ProductDetails() {
                         alt={product.name}
                         className="h-full w-full object-cover"
                         draggable={false}
+                        loading="eager"
                       />
                     )}
                   </motion.div>
@@ -239,7 +264,13 @@ export default function ProductDetails() {
                         </div>
                       </div>
                     ) : (
-                      <img src={media.url} alt="" className="h-16 w-16 object-cover sm:h-20 sm:w-20" draggable={false} />
+                      <img
+                        src={media.url}
+                        alt={`${product.name} thumbnail`}
+                        className="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                        draggable={false}
+                        loading="lazy"
+                      />
                     )}
                   </button>
                 ))}
