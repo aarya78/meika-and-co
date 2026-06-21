@@ -1,0 +1,242 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { Search, Sparkles } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
+
+import { useCategories } from "@/hooks/useCategories";
+import { useProducts } from "@/hooks/useProducts";
+import { getPrimaryProductThumbnail } from "@/services/productService";
+
+function ProductsSkeleton() {
+  return (
+    <section className="min-h-screen bg-[#FFF9F5] py-10 sm:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="text-center">
+          <div className="mx-auto h-8 w-40 animate-pulse rounded-full bg-[#efe3da]" />
+          <div className="mx-auto mt-4 h-10 w-60 animate-pulse rounded-full bg-[#f2e5dd] sm:mt-6 sm:h-12 sm:w-72" />
+          <div className="mx-auto mt-3 h-4 w-[20rem] max-w-full animate-pulse rounded-full bg-[#f4e9e2] sm:mt-4 sm:h-5 sm:w-[32rem]" />
+        </div>
+
+        <div className="mx-auto mt-8 max-w-md sm:mt-12">
+          <div className="h-11 animate-pulse rounded-2xl bg-white shadow-sm sm:h-12" />
+        </div>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-2.5 sm:mt-10 sm:gap-3">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div key={index} className="h-9 w-24 animate-pulse rounded-full bg-white sm:h-10 sm:w-28" />
+          ))}
+        </div>
+
+        <div className="mt-10 grid auto-rows-fr grid-cols-2 gap-3 sm:mt-16 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div
+              key={index}
+              className="overflow-hidden rounded-[22px] border border-neutral-200 bg-white p-2.5 shadow-sm sm:rounded-3xl sm:p-3"
+            >
+              <div className="aspect-[0.88] animate-pulse rounded-[18px] bg-[#f5ebe3] sm:aspect-[0.94] sm:rounded-2xl" />
+              <div className="mt-3 h-4 w-20 animate-pulse rounded-full bg-[#f1e4dc] sm:mt-5 sm:h-5 sm:w-24" />
+              <div className="mt-3 h-5 w-28 animate-pulse rounded-full bg-[#efe3da] sm:mt-4 sm:h-6 sm:w-40" />
+              <div className="mt-2 h-3.5 w-full animate-pulse rounded-full bg-[#f4e9e2] sm:mt-3 sm:h-4" />
+              <div className="mt-4 h-8 animate-pulse rounded-xl bg-[#f3e7df] sm:mt-5 sm:h-10" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Products() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { categories, isLoading: categoriesLoading, error: categoriesError } = useCategories();
+  const { products, isLoading: productsLoading, error: productsError } = useProducts();
+  const [search, setSearch] = useState("");
+
+  const categoryFromUrl = searchParams.get("category") ?? "all";
+  const activeCategorySlug = categoryFromUrl.toLowerCase();
+
+  useEffect(() => {
+    if (activeCategorySlug === "all") {
+      return;
+    }
+
+    const matchesCategory = categories.some(
+      (category) => category.slug.toLowerCase() === activeCategorySlug,
+    );
+
+    if (!categoriesLoading && categories.length && !matchesCategory) {
+      setSearchParams((current) => {
+        const next = new URLSearchParams(current);
+        next.delete("category");
+        return next;
+      });
+    }
+  }, [activeCategorySlug, categories, categoriesLoading, setSearchParams]);
+
+  const filters = useMemo(
+    () => [
+      { label: "All", slug: "all" },
+      ...categories.map((category) => ({ label: category.name, slug: category.slug })),
+    ],
+    [categories],
+  );
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) => {
+      if (!product.isActive) {
+        return false;
+      }
+
+      const matchesCategory =
+        activeCategorySlug === "all" ||
+        product.categorySlug.toLowerCase() === activeCategorySlug;
+
+      const query = search.trim().toLowerCase();
+      const matchesSearch =
+        !query ||
+        [product.name, product.description].join(" ").toLowerCase().includes(query);
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategorySlug, products, search]);
+
+  if (categoriesLoading || productsLoading) {
+    return <ProductsSkeleton />;
+  }
+
+  return (
+    <section className="min-h-screen overflow-x-hidden bg-[#FFF9F5] py-10 sm:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="text-center">
+          <span className="rounded-full border border-[#d9b8a1] bg-[#fff1e8] px-3 py-1.5 text-xs text-[#c96f4f] sm:px-4 sm:py-2 sm:text-sm">
+            Handmade With Love
+          </span>
+
+          <h1 className="mt-4 text-3xl font-bold text-neutral-900 sm:mt-6 sm:text-5xl">
+            Our Products
+          </h1>
+
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-neutral-600 sm:mt-4 sm:text-base sm:leading-7">
+            Explore our handcrafted doll collections, designed to bring comfort, joy and beautiful memories.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-8 max-w-md sm:mt-12">
+          <div className="flex items-center rounded-2xl border border-neutral-200 bg-white px-3.5 shadow-sm sm:px-4">
+            <Search className="h-4 w-4 text-neutral-500 sm:h-5 sm:w-5" />
+            <input
+              type="text"
+              placeholder="Search dolls..."
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              className="h-11 w-full bg-transparent px-2.5 text-sm text-neutral-900 outline-none sm:h-12 sm:px-3 sm:text-base"
+            />
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-2 sm:mt-10 sm:gap-3">
+          {filters.map((filter) => (
+            <button
+              key={filter.slug}
+              onClick={() =>
+                setSearchParams((current) => {
+                  const next = new URLSearchParams(current);
+                  if (filter.slug === "all") {
+                    next.delete("category");
+                  } else {
+                    next.set("category", filter.slug);
+                  }
+                  return next;
+                })
+              }
+              className={`rounded-full px-3.5 py-2 text-xs transition-all duration-300 sm:px-5 sm:text-sm ${
+                activeCategorySlug === filter.slug
+                  ? "bg-[#D97757] text-white shadow-lg shadow-[#d97757]/20"
+                  : "border border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50"
+              }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+
+        {(categoriesError || productsError) && (
+          <div className="mx-auto mt-6 max-w-3xl rounded-3xl border border-red-100 bg-white px-4 py-4 text-center text-sm text-red-500 shadow-sm sm:mt-8 sm:px-6 sm:py-5">
+            {categoriesError || productsError}
+          </div>
+        )}
+
+        <div className="mt-10 grid auto-rows-fr grid-cols-2 gap-3 sm:mt-16 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredProducts.map((product) => {
+            const thumbnail = getPrimaryProductThumbnail(product);
+            if (!thumbnail) {
+              return null;
+            }
+
+            return (
+              <Link
+                key={product.id}
+                to={`/products/${product.id}`}
+                className="group flex h-full flex-col overflow-hidden rounded-[22px] border border-neutral-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl sm:rounded-3xl"
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={thumbnail.url}
+                    alt={product.name}
+                    className="aspect-[0.88] w-full object-cover transition duration-700 group-hover:scale-110 sm:aspect-[0.94]"
+                  />
+
+                  {product.featured && (
+                    <div className="absolute left-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-[#D97757] px-2.5 py-1 text-[10px] font-semibold text-white sm:left-3 sm:top-3 sm:px-3 sm:text-xs">
+                      <Sparkles size={11} className="sm:size-3" />
+                      Featured
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-1 flex-col p-3.5 sm:p-5">
+                  <span className="w-fit rounded-full bg-[#fef0e7] px-2.5 py-1 text-[10px] font-medium text-[#c96f4f] ring-1 ring-[#f5d6c3] sm:px-3 sm:text-xs">
+                    {product.categoryName}
+                  </span>
+
+                  <h3 className="mt-2.5 line-clamp-2 min-h-[2.5rem] text-sm font-semibold leading-5 text-neutral-900 sm:mt-3 sm:min-h-[2.75rem] sm:text-xl sm:leading-7">
+                    {product.name}
+                  </h3>
+
+                  <p className="mt-1.5 line-clamp-2 min-h-[2.5rem] text-xs leading-5 text-neutral-600 sm:mt-2 sm:min-h-[3rem] sm:text-sm sm:leading-6">
+                    {product.description}
+                  </p>
+
+                  <div className="mt-auto flex items-center gap-1.5 pt-3 sm:gap-2 sm:pt-4">
+                    <p className="text-base font-bold text-[#c96f4f] sm:text-xl">
+                      Rs. {product.salePrice ?? product.price}
+                    </p>
+                    {product.salePrice !== null && product.salePrice < product.price && (
+                      <span className="text-[11px] text-neutral-400 line-through sm:text-sm">
+                        Rs. {product.price}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-4 rounded-xl bg-neutral-900 py-2.5 text-center text-sm font-medium text-white transition hover:bg-neutral-800 sm:mt-5 sm:py-3 sm:text-base">
+                    View Details
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        {filteredProducts.length === 0 && (
+          <div className="mt-14 text-center sm:mt-20">
+            <h3 className="text-xl font-semibold text-black sm:text-2xl">No products found</h3>
+            <p className="mt-2 text-sm text-neutral-400 sm:mt-3 sm:text-base">
+              Try another search term or switch to a different collection.
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
