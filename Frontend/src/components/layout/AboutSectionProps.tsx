@@ -1,192 +1,110 @@
 import { motion } from "framer-motion";
 import { Heart, Sparkles, Users } from "lucide-react";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
 
-interface AboutSectionProps {
-    founderImage: string;
-}
+interface AboutSectionProps { }
 
-export default function AboutSection({
-    founderImage,
-}: AboutSectionProps) {
+export default function AboutSection({ }: AboutSectionProps) {
     return (
-        <section
-            id="story"
-            className="min-h-[100svh] flex items-center"
-        >
-            <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
-                <div className="grid items-center gap-16 lg:grid-cols-2">
-                    {/* Content */}
-                    <motion.div
-                        initial={{
-                            opacity: 0,
-                            x: -40,
-                        }}
-                        whileInView={{
-                            opacity: 1,
-                            x: 0,
-                        }}
-                        viewport={{ once: true }}
-                        transition={{
-                            duration: 0.7,
-                        }}
-                    >
-                        <span
-                            className="
-                                mb-4
-                                inline-block
-                                rounded-full
-                                bg-[#F6E6D7]
-                                px-4
-                                py-2
-                                text-xs
-                                font-medium
-                                uppercase
-                                tracking-[0.25em]
-                                text-[#D97757]
-                            "
-                        >
-                            Our Story
+        <section id="story" className="bg-white">
+            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
+                <motion.div
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.7 }}
+                    className="text-center"
+                >
+                    {/* Section Badge */}
+                    <div className="flex justify-center">
+                        <span className="inline-block rounded-full bg-[#F6E6D7] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-[#D97757] sm:px-4 sm:text-xs">
+                            OUR STORY
                         </span>
+                    </div>
 
-                        <h2
-                            className="
-                                mb-6
-                                font-serif
-                                text-2xl
-                                font-semibold
-                                leading-tight
-                                text-[#2D2D2D]
-                                lg:text-6xl
-                            "
-                        >
-                            Welcome to Meika & Co 🤍
-                            
-                        </h2>
+                    {/* Main Heading */}
+                    <h2 className="mt-5 mx-auto max-w-xl font-serif text-[2.2rem] font-semibold leading-[1.1] text-[#2D2D2D] sm:text-4xl md:text-5xl">
+                        Welcome to Meika & Co 🤍
+                    </h2>
 
-                        <p className="mb-5 text-lg leading-relaxed text-[#6A5D55]">
-                            A world of handcrafted fabric toys, dolls, and keepsakes designed to make childhood a little softer and a lot more magical.
-                        </p>
-
-                        <p className="mb-10 text-lg leading-relaxed text-[#6A5D55]">
-                            Every creation is stitched with care using natural fabrics and thoughtful details, making each piece unique—just like the little ones who love them.
-                        </p>
-
-                        <p className="mb-10 text-lg leading-relaxed text-[#6A5D55]">
-                            Thank you for being here and supporting handmade. ✨
-                        </p>
-
-                        {/* Stats */}
-                        <div className="grid grid-cols-3 gap-4">
-                            <div className="rounded-2xl bg-white p-5 shadow-sm">
-                                <Heart
-                                    className="mb-3 text-[#D97757]"
-                                    size={22}
-                                />
-
-                                <h3 className="text-2xl font-semibold">
-                                    200+
-                                </h3>
-
-                                <p className="text-sm text-muted-foreground">
-                                    Dolls Crafted
-                                </p>
-                            </div>
-
-                            <div className="rounded-2xl bg-white p-5 shadow-sm">
-                                <Users
-                                    className="mb-3 text-[#D97757]"
-                                    size={22}
-                                />
-
-                                <h3 className="text-2xl font-semibold">
-                                    50+
-                                </h3>
-
-                                <p className="text-sm text-muted-foreground">
-                                    Happy Families
-                                </p>
-                            </div>
-
-                            <div className="rounded-2xl bg-white p-5 shadow-sm">
-                                <Sparkles
-                                    className="mb-3 text-[#D97757]"
-                                    size={22}
-                                />
-
-                                <h3 className="text-2xl font-semibold">
-                                    100%
-                                </h3>
-
-                                <p className="text-sm text-muted-foreground">
-                                    Handmade
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Founder Image */}
+                    {/* Founder Note Card (Text Only) */}
                     <motion.div
-                        initial={{
-                            opacity: 0,
-                            x: 40,
-                        }}
-                        whileInView={{
-                            opacity: 1,
-                            x: 0,
-                        }}
+                        initial={{ opacity: 0, y: 14 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{
-                            duration: 0.7,
-                        }}
-                        className="relative"
+                        transition={{ duration: 0.7, delay: 0.25 }}
+                        className="mt-10 mx-auto max-w-3xl px-4"
                     >
-                        <div className="relative rounded-[32px] p-[2px]">
-                            <GlowingEffect
-                                spread={80}
-                                glow
-                                disabled={false}
-                                proximity={120}
-                                inactiveZone={0.1}
-                                borderWidth={3}
-                            />
+                        <div className="rounded-2xl border-l-4 border-[#D97757] bg-white p-5 shadow-md sm:p-8">
+                            <p className="text-[11px] uppercase tracking-[0.25em] text-[#8F7A6B]">
+                                FOUNDER & MAKER
+                            </p>
 
-                            <div
-                                className="
-                                    relative
-                                    overflow-hidden
-                                    rounded-[28px]
-                                "
-                            >
-                                <img
-                                    src={founderImage}
-                                    alt="Founder"
-                                    className="h-[300px] w-full object-cover lg:h-[400px]"
-                                />
+                            <h3 className="mt-2 text-2xl font-semibold text-[#2D2D2D]">
+                                Monica Singhania
+                            </h3>
 
-                                <div
-                                    className="
-                                        absolute
-                                        inset-x-0
-                                        bottom-0
-                                        bg-gradient-to-t
-                                        from-black/60
-                                        to-transparent
-                                        p-8
-                                    "
-                                >
-                                    <h3 className="text-2xl text-white">
-                                        Meika Founder
-                                    </h3>
+                            <div className="mt-4 space-y-4 text-base leading-8 text-[#6A5D55] sm:text-sm sm:leading-relaxed">
+                                <p>
+                                    I make things that feel like home — soft companions for little hands, and quiet statements for grown hearts. Each piece is made in small batches, with stitches placed by hand and colours chosen for calm.
+                                </p>
 
-                                    <p className="text-white/80">
-                                        Handmade Artist & Creator
-                                    </p>
-                                </div>
+                                <p>
+                                    My hope is that these dolls hold stories: first hugs, sleepy prayers, tiny adventures. They are not just toys — they are reminders that care can be simple and beautiful.
+                                </p>
                             </div>
+
+                            <p className="mt-6 text-xl italic font-serif text-[#2D2D2D]">
+                                With love,
+                            </p>
+                            <p className="mt-1 text-3xl italic font-serif tracking-wide text-[#2D2D2D]">
+                                Meika
+                            </p>
                         </div>
                     </motion.div>
-                </div>
+
+                    {/* Stats Section */}
+                    <motion.div
+                        className="mt-12 px-4"
+                        initial={{ opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, delay: 0.3 }}
+                    >
+                        <div className="grid grid-cols-3 gap-4 sm:grid-cols-3 sm:gap-6 max-w-4xl mx-auto">
+                            <motion.div
+                                whileHover={{ scale: 1.03 }}
+                                className="flex h-full flex-col items-center rounded-2xl bg-white p-5 text-center shadow-sm transition-shadow duration-300 hover:shadow-md sm:p-6"
+                            >
+                                <Heart className="mb-3 text-[#D97757]" size={26} />
+                                <h4 className="text-2xl font-semibold text-[#2D2D2D]">200+</h4>
+                                <p className="mt-1 text-sm text-[#85736A]">Dolls Crafted</p>
+                                <p className="hidden sm:block mt-3 text-xs text-[#9A8B80]">
+                                    Each lovingly made in our studio
+                                </p>
+                            </motion.div>
+
+                            <motion.div
+                                whileHover={{ scale: 1.03 }}
+                                className="h-full rounded-2xl bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col items-center text-center"
+                            >
+                                <Users className="mb-3 text-[#D97757]" size={26} />
+                                <h4 className="text-2xl font-semibold text-[#2D2D2D]">50+</h4>
+                                <p className="mt-1 text-sm text-[#85736A]">Happy Families</p>
+                                <p className="hidden sm:block mt-3 text-xs text-[#9A8B80]">Grown-ups who chose handmade and heirloom quality</p>
+                            </motion.div>
+
+                            <motion.div
+                                whileHover={{ scale: 1.03 }}
+                                className="h-full rounded-2xl bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col items-center text-center"
+                            >
+                                <Sparkles className="mb-3 text-[#D97757]" size={26} />
+                                <h4 className="text-2xl font-semibold text-[#2D2D2D]">100%</h4>
+                                <p className="mt-1 text-sm text-[#85736A]">Handmade</p>
+                                <p className="hidden sm:block mt-3 text-xs text-[#9A8B80]">From first cut to final stitch</p>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </motion.div>
             </div>
         </section>
     );

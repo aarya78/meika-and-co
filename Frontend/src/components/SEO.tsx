@@ -58,9 +58,35 @@ export default function SEO({
       {children}
 
       {/* JSON-LD schemas */}
-      {schema && (
-        <script type="application/ld+json">{JSON.stringify(schema)}</script>
-      )}
+      {(() => {
+        const organization = {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": SITE_NAME,
+          "url": SITE_URL,
+          "logo": `${SITE_URL}/og-image.svg`,
+        };
+
+        const website = {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": SITE_URL,
+          "name": SITE_NAME,
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": `${SITE_URL}/?s={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        };
+
+        const baseSchemas: SchemaObj[] = [organization, website];
+
+        const extra = Array.isArray(schema) ? schema : schema ? [schema] : [];
+
+        return [...baseSchemas, ...extra].map((s, i) => (
+          <script key={i} type="application/ld+json">{JSON.stringify(s)}</script>
+        ));
+      })()}
     </Helmet>
   );
 }

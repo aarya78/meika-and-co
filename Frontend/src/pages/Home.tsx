@@ -1,6 +1,4 @@
-import AboutSection from '@/components/layout/AboutSectionProps'
 import Hero from '@/components/layout/Hero'
-import founder from "@/assets/founcder.webp"
 import ProductSection from '@/components/layout/ProductSection'
 import TestimonialsSection from '@/components/layout/TestimonialsSection'
 import SEO from '@/components/SEO'
@@ -18,7 +16,6 @@ function Home() {
       </SEO>
 
       <Hero />
-      <AboutSection founderImage={founder} />
       <ProductSection />
       <TestimonialsSection />
     </>

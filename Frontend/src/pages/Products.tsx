@@ -8,6 +8,7 @@ import { useCategories } from "@/hooks/useCategories";
 import { useProducts } from "@/hooks/useProducts";
 import { getPrimaryProductThumbnail } from "@/services/productService";
 import SEO from '@/components/SEO'
+import ProductCard from '@/components/ProductCard'
 
 function ProductsSkeleton() {
   return (
@@ -102,6 +103,7 @@ export default function Products() {
     });
   }, [activeCategorySlug, products, search]);
 
+  console.log("filteredProducts", filteredProducts);
   if (categoriesLoading || productsLoading) {
     return <ProductsSkeleton />;
   }
@@ -174,66 +176,9 @@ export default function Products() {
           )}
 
           <div className="mt-10 grid auto-rows-fr grid-cols-2 gap-3 sm:mt-16 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-            {filteredProducts.map((product) => {
-              const thumbnail = getPrimaryProductThumbnail(product);
-              if (!thumbnail) {
-                return null;
-              }
-
-              return (
-                <Link
-                  key={product.id}
-                  to={`/products/${product.id}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-[22px] border border-neutral-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl sm:rounded-3xl"
-                >
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={thumbnail.url}
-                      alt={product.name}
-                      loading="lazy"
-                      decoding="async"
-                      className="aspect-[0.88] w-full object-cover transition duration-700 group-hover:scale-110 sm:aspect-[0.94]"
-                    />
-
-                    {product.featured && (
-                      <div className="absolute left-2.5 top-2.5 inline-flex items-center gap-1 rounded-full bg-[#D97757] px-2.5 py-1 text-[10px] font-semibold text-white sm:left-3 sm:top-3 sm:px-3 sm:text-xs">
-                        <Sparkles size={11} className="sm:size-3" />
-                        Featured
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex flex-1 flex-col p-3.5 sm:p-5">
-                    <span className="w-fit rounded-full bg-[#fef0e7] px-2.5 py-1 text-[10px] font-medium text-[#c96f4f] ring-1 ring-[#f5d6c3] sm:px-3 sm:text-xs">
-                      {product.categoryName}
-                    </span>
-
-                    <h3 className="mt-2.5 line-clamp-2 min-h-[2.5rem] text-sm font-semibold leading-5 text-neutral-900 sm:mt-3 sm:min-h-[2.75rem] sm:text-xl sm:leading-7">
-                      {product.name}
-                    </h3>
-
-                    <p className="mt-1.5 line-clamp-2 min-h-[2.5rem] text-xs leading-5 text-neutral-600 sm:mt-2 sm:min-h-[3rem] sm:text-sm sm:leading-6">
-                      {product.description}
-                    </p>
-
-                    <div className="mt-auto flex items-center gap-1.5 pt-3 sm:gap-2 sm:pt-4">
-                      <p className="text-base font-bold text-[#c96f4f] sm:text-xl">
-                        Rs. {product.salePrice ?? product.price}
-                      </p>
-                      {product.salePrice !== null && product.salePrice < product.price && (
-                        <span className="text-[11px] text-neutral-400 line-through sm:text-sm">
-                          Rs. {product.price}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="mt-4 rounded-xl bg-neutral-900 py-2.5 text-center text-sm font-medium text-white transition hover:bg-neutral-800 sm:mt-5 sm:py-3 sm:text-base">
-                      View Details
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
 
           {filteredProducts.length === 0 && (

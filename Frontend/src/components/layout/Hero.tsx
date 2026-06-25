@@ -48,6 +48,11 @@ export default function Hero() {
                         src={heroSlides[current].image}
                         alt={heroSlides[current].title}
                         className="h-full w-full object-cover"
+                        loading="eager"
+                        decoding="async"
+                        fetchPriority="high"
+                        width={1600}
+                        height={900}
                     />
 
                     <div className="absolute inset-0 bg-black/30" />

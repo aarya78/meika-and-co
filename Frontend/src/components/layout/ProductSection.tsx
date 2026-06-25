@@ -116,9 +116,6 @@ export default function ProductSection() {
                 <h3 className="font-serif text-2xl font-semibold text-[#2D2D2D] sm:text-4xl">
                   {collection.name}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-[#6A5D55] sm:text-lg">
-                  {collection.description || `Explore our ${collection.name.toLowerCase()} picks.`}
-                </p>
               </div>
 
               <Link

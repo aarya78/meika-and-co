@@ -15,7 +15,7 @@ export default function TestimonialsSection() {
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6">
         <div className="mx-auto mb-14 max-w-4xl text-center sm:mb-24">
-          <span className="inline-flex items-center rounded-full border border-pink-500/20 bg-pink-500/10 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.2em] text-pink-500 sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.25em]">
+          <span className="inline-flex C rounded-full border border-pink-500/20 bg-pink-500/10 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.2em] text-pink-500 sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.25em]">
             Customer Stories
           </span>
 
@@ -40,36 +40,6 @@ export default function TestimonialsSection() {
               speed="slow"
               pauseOnHover
             />
-          </div>
-        </div>
-
-        <div className="mt-14 grid gap-4 rounded-[28px] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl sm:mt-24 sm:gap-8 sm:rounded-[32px] sm:p-10 md:grid-cols-4">
-          <div className="text-center">
-            <h3 className="text-3xl font-bold sm:text-5xl">500+</h3>
-            <p className="mt-1 text-sm text-muted-foreground sm:mt-2 sm:text-base">
-              Happy Customers
-            </p>
-          </div>
-
-          <div className="text-center">
-            <h3 className="text-3xl font-bold sm:text-5xl">4.9+</h3>
-            <p className="mt-1 text-sm text-muted-foreground sm:mt-2 sm:text-base">
-              Average Rating
-            </p>
-          </div>
-
-          <div className="text-center">
-            <h3 className="text-3xl font-bold sm:text-5xl">100%</h3>
-            <p className="mt-1 text-sm text-muted-foreground sm:mt-2 sm:text-base">
-              Handmade
-            </p>
-          </div>
-
-          <div className="text-center">
-            <h3 className="text-3xl font-bold sm:text-5xl">3+</h3>
-            <p className="mt-1 text-sm text-muted-foreground sm:mt-2 sm:text-base">
-              Doll Collections
-            </p>
           </div>
         </div>
       </div>

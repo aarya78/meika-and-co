@@ -18,6 +18,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { fetchProductById, type Product } from "@/services/productService";
 import { useSettings } from "@/contexts/SettingsContext";
 import SEO from '@/components/SEO'
+import { buildSrcSet } from '@/lib/image'
 
 function ProductDetailsSkeleton() {
   return (
@@ -204,13 +205,38 @@ export default function ProductDetails() {
                           <source src={selectedMedia.url} type="video/mp4" />
                         </video>
                       ) : (
-                        <img
-                          src={selectedMedia?.url}
-                          alt={product.name}
-                          className="h-full w-full object-cover"
-                          draggable={false}
-                          loading="eager"
-                        />
+                        (() => {
+                          const srcsets = selectedMedia ? buildSrcSet(selectedMedia.url) : null;
+
+                          if (srcsets) {
+                            return (
+                              <picture>
+                                <img
+                                  src={selectedMedia!.url}
+                                  alt={product.name}
+                                  className="h-full w-full object-cover"
+                                  draggable={false}
+                                  loading="eager"
+                                  decoding="async"
+                                  fetchPriority="high"
+                                  width={1200}
+                                  height={900}
+                                />
+                              </picture>
+                            );
+                          }
+
+                          return (
+                            <img
+                              src={selectedMedia?.url}
+                              alt={product.name}
+                              className="h-full w-full object-cover"
+                              draggable={false}
+                              loading="eager"
+                              fetchPriority="high"
+                            />
+                          );
+                        })()
                       )}
                     </motion.div>
                   </AnimatePresence>
@@ -225,6 +251,7 @@ export default function ProductDetails() {
                   {product.media.length > 1 && (
                     <>
                       <button
+                        aria-label="Previous media"
                         onClick={() =>
                           setCurrentIndex((prev) => (prev === 0 ? product.media.length - 1 : prev - 1))
                         }
@@ -233,6 +260,7 @@ export default function ProductDetails() {
                         <ChevronLeft size={18} className="sm:size-5" />
                       </button>
                       <button
+                        aria-label="Next media"
                         onClick={() =>
                           setCurrentIndex((prev) => (prev === product.media.length - 1 ? 0 : prev + 1))
                         }
@@ -250,6 +278,7 @@ export default function ProductDetails() {
                   {product.media.map((media, index) => (
                     <button
                       key={`${media.url}-${index}`}
+                      aria-label={`Select media ${index + 1}`}
                       onClick={() => setCurrentIndex(index)}
                       className={`relative flex-shrink-0 overflow-hidden rounded-2xl transition-all duration-300 ${index === currentIndex
                         ? "ring-2 ring-[#c96f4f] ring-offset-2 ring-offset-[#fdf6f0]"
@@ -263,13 +292,36 @@ export default function ProductDetails() {
                           </div>
                         </div>
                       ) : (
-                        <img
-                          src={media.url}
-                          alt={`${product.name} thumbnail`}
-                          className="h-16 w-16 object-cover sm:h-20 sm:w-20"
-                          draggable={false}
-                          loading="lazy"
-                        />
+                        (() => {
+                          const s = buildSrcSet(media.url);
+
+                          if (s) {
+                            return (
+                              <picture>
+                                <img
+                                  src={media.url}
+                                  alt={`${product.name} thumbnail`}
+                                  className="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                                  draggable={false}
+                                  loading="lazy"
+                                  decoding="async"
+                                  width={160}
+                                  height={160}
+                                />
+                              </picture>
+                            );
+                          }
+
+                          return (
+                            <img
+                              src={media.url}
+                              alt={`${product.name} thumbnail`}
+                              className="h-16 w-16 object-cover sm:h-20 sm:w-20"
+                              draggable={false}
+                              loading="lazy"
+                            />
+                          );
+                        })()
                       )}
                     </button>
                   ))}

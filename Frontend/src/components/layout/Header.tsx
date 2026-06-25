@@ -41,17 +41,15 @@ const navItems: NavItem[] = [
   },
   {
     label: "Our Story",
-    href: "/#story",
+    href: "/about",
     icon: Heart,
-    kind: "section",
-    sectionId: "story",
+    kind: "route",
   },
   {
     label: "Collection",
-    href: "/#collection",
+    href: "/products",
     icon: Gift,
-    kind: "section",
-    sectionId: "collection",
+    kind: "route"
   },
   {
     label: "Testimonials",
