@@ -97,14 +97,6 @@ export default function ProductDetails() {
 
   const selectedMedia = product?.media[currentIndex] ?? null;
 
-  const discountPercentage = useMemo(() => {
-    if (!product || product.salePrice === null || product.salePrice >= product.price) {
-      return null;
-    }
-
-    return Math.round(((product.price - product.salePrice) / product.price) * 100);
-  }, [product]);
-
   const whatsappUrl = useMemo(() => {
     if (!product || !settings?.whatsapp_number) {
       return null;
@@ -165,7 +157,6 @@ export default function ProductDetails() {
     "offers": {
       "@type": "Offer",
       "priceCurrency": "INR",
-      "price": product.salePrice ?? product.price,
       "availability": product.isActive ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       "url": window.location.href,
     },
@@ -359,20 +350,6 @@ export default function ProductDetails() {
               <h1 className="mt-4 font-serif text-[1.85rem] font-bold leading-tight text-[#2f241f] sm:mt-5 sm:text-4xl lg:text-5xl">
                 {product.name}
               </h1>
-
-              <div className="mt-4 flex flex-wrap items-baseline gap-2 sm:mt-5 sm:gap-3">
-                <p className="text-3xl font-bold text-[#c96f4f] sm:text-4xl">
-                  Rs. {product.salePrice ?? product.price}
-                </p>
-                {product.salePrice !== null && product.salePrice < product.price && (
-                  <span className="text-sm text-[#b0a298] line-through sm:text-lg">Rs. {product.price}</span>
-                )}
-                {discountPercentage !== null && (
-                  <span className="rounded-full bg-green-50 px-2 py-0.5 text-xs font-medium text-green-600 ring-1 ring-green-200 sm:px-2.5 sm:text-sm">
-                    {discountPercentage}% off
-                  </span>
-                )}
-              </div>
 
               <p className="mt-4 text-sm leading-6 text-[#6A5D55] sm:mt-6 sm:text-base sm:leading-relaxed">
                 {product.description}
