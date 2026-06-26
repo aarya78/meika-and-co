@@ -388,6 +388,10 @@ export default function AddProduct() {
                     </SelectTrigger>
 
                     <SelectContent>
+                      <SelectItem value="5-10 inches">
+                        5-10 inches
+                      </SelectItem>
+                      
                       <SelectItem value="8-10 inches">
                         8-10 inches
                       </SelectItem>

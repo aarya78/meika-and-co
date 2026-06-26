@@ -4,7 +4,7 @@ import { ArrowUpRight, Heart, Mail, MapPin, MessageCircle } from "lucide-react";
 import { FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useSettings } from "@/contexts/SettingsContext";
 
@@ -38,6 +38,13 @@ const linkItem: Variants = {
     transition: { duration: 0.4, ease: "easeOut" },
   },
 };
+
+const quickLinks = [
+  { label: "About Us", to: "/about", type: "route" },
+  { label: "Collections", to: "/#collection", type: "anchor" },
+  { label: "Testimonials", to: "/#testimonials", type: "anchor" },
+  { label: "Contact", to: "/contact", type: "anchor" },
+];
 
 export function Footer() {
   const navigate = useNavigate();
@@ -175,20 +182,39 @@ export function Footer() {
               viewport={{ once: true }}
               variants={staggerChildren}
             >
-              {["About Us", "Collections", "Testimonials", "Contact"].map((item) => (
-                <motion.li key={item} variants={linkItem}>
-                  <motion.a
-                    href="#"
-                    className="group inline-flex items-center gap-1 transition hover:text-[#c96f4f]"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <span>{item}</span>
-                    <ArrowUpRight
-                      size={13}
-                      className="opacity-0 transition-opacity group-hover:opacity-100"
-                    />
-                  </motion.a>
+              {quickLinks.map((item) => (
+                <motion.li key={item.label} variants={linkItem}>
+                  {item.type === "route" ? (
+                    <Link
+                      to={item.to}
+                      className="group inline-flex items-center gap-1 transition hover:text-[#c96f4f]"
+                    >
+                      <motion.span
+                        whileHover={{ x: 5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        className="inline-flex items-center gap-1"
+                      >
+                        <span>{item.label}</span>
+                        <ArrowUpRight
+                          size={13}
+                          className="opacity-0 transition-opacity group-hover:opacity-100"
+                        />
+                      </motion.span>
+                    </Link>
+                  ) : (
+                    <motion.a
+                      href={item.to}
+                      className="group inline-flex items-center gap-1 transition hover:text-[#c96f4f]"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <span>{item.label}</span>
+                      <ArrowUpRight
+                        size={13}
+                        className="opacity-0 transition-opacity group-hover:opacity-100"
+                      />
+                    </motion.a>
+                  )}
                 </motion.li>
               ))}
             </motion.ul>

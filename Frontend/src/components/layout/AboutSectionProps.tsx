@@ -35,13 +35,6 @@ export default function AboutSection({ }: AboutSectionProps) {
                         className="mt-10 mx-auto max-w-3xl px-4"
                     >
                         <div className="rounded-2xl border-l-4 border-[#D97757] bg-white p-5 shadow-md sm:p-8">
-                            <p className="text-[11px] uppercase tracking-[0.25em] text-[#8F7A6B]">
-                                FOUNDER & MAKER
-                            </p>
-
-                            <h3 className="mt-2 text-2xl font-semibold text-[#2D2D2D]">
-                                Monica Singhania
-                            </h3>
 
                             <div className="mt-4 space-y-4 text-base leading-8 text-[#6A5D55] sm:text-sm sm:leading-relaxed">
                                 <p>

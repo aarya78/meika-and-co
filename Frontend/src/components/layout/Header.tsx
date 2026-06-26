@@ -17,20 +17,22 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useSettings } from "@/contexts/SettingsContext";
 
+import logo from "@/assets/logo.png";
+
 type NavItem =
   | {
-      label: string;
-      href: string;
-      icon: typeof Home;
-      kind: "route";
-    }
+    label: string;
+    href: string;
+    icon: typeof Home;
+    kind: "route";
+  }
   | {
-      label: string;
-      href: string;
-      icon: typeof Home;
-      kind: "section";
-      sectionId: string;
-    };
+    label: string;
+    href: string;
+    icon: typeof Home;
+    kind: "section";
+    sectionId: string;
+  };
 
 const navItems: NavItem[] = [
   {
@@ -126,25 +128,20 @@ export default function Header() {
       initial={{ opacity: 0, y: -40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled
           ? "border-b border-black/5 bg-[#FFF9F5]/80 shadow-sm backdrop-blur-xl"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="mx-auto flex h-[88px] max-w-7xl items-center justify-between px-6 lg:px-10">
         <Link to="/" className="group flex flex-col">
-          <div className="flex items-center gap-2">
-            <span className="text-[#D97757]">✦</span>
-
-            <h1 className="font-serif text-2xl font-semibold tracking-wide text-[#2D2D2D]">
-              MEIKA
-            </h1>
+          <div className="flex items-center gap-3">
+            <img
+              src={logo}
+              alt="Meika Logo"
+              className="h-16 w-auto object-contain"
+            />
           </div>
-
-          <span className="ml-5 text-[10px] uppercase tracking-[0.35em] text-muted-foreground">
-            Handmade Fabric Dolls
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -156,16 +153,14 @@ export default function Header() {
                 key={item.label}
                 type="button"
                 onClick={() => handleNavClick(item)}
-                className={`group relative text-sm font-medium transition ${
-                  isActive ? "text-[#D97757]" : "text-[#2D2D2D]"
-                }`}
+                className={`group relative text-sm font-medium transition ${isActive ? "text-[#D97757]" : "text-[#2D2D2D]"
+                  }`}
               >
                 {item.label}
 
                 <span
-                  className={`absolute -bottom-2 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-[#D97757] transition-all duration-300 ${
-                    isActive ? "w-full" : "w-0 group-hover:w-full"
-                  }`}
+                  className={`absolute -bottom-2 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-[#D97757] transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
                 />
               </button>
             );
@@ -256,9 +251,8 @@ export default function Header() {
                         }}
                         whileHover={{ x: 6 }}
                         onClick={() => handleNavClick(item)}
-                        className={`group flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left transition-all ${
-                          isActive ? "bg-[#F8EFE9]" : "hover:bg-[#F8EFE9]"
-                        }`}
+                        className={`group flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left transition-all ${isActive ? "bg-[#F8EFE9]" : "hover:bg-[#F8EFE9]"
+                          }`}
                       >
                         <div className="flex items-center gap-4">
                           <Icon size={22} className="text-[#B5838D]" />
@@ -267,9 +261,8 @@ export default function Header() {
                         </div>
 
                         <span
-                          className={`text-[#D97757] transition ${
-                            isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                          }`}
+                          className={`text-[#D97757] transition ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                            }`}
                         >
                           ✦
                         </span>
