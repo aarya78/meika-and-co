@@ -153,7 +153,6 @@ export default function ProductSection() {
                         categoryName={product.categoryName}
                         description={product.description}
                         price={product.price}
-                        salePrice={product.salePrice}
                         featured={product.featured}
                       />
                     </CarouselItem>

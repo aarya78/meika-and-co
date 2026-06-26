@@ -157,6 +157,7 @@ export default function ProductDetails() {
     "offers": {
       "@type": "Offer",
       "priceCurrency": "INR",
+      "price": product.price,
       "availability": product.isActive ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       "url": window.location.href,
     },
@@ -350,6 +351,12 @@ export default function ProductDetails() {
               <h1 className="mt-4 font-serif text-[1.85rem] font-bold leading-tight text-[#2f241f] sm:mt-5 sm:text-4xl lg:text-5xl">
                 {product.name}
               </h1>
+
+              <div className="mt-4 flex flex-wrap items-baseline gap-2 sm:mt-5 sm:gap-3">
+                <p className="text-3xl font-bold text-[#c96f4f] sm:text-4xl">
+                  Rs. {product.price}
+                </p>
+              </div>
 
               <p className="mt-4 text-sm leading-6 text-[#6A5D55] sm:mt-6 sm:text-base sm:leading-relaxed">
                 {product.description}
