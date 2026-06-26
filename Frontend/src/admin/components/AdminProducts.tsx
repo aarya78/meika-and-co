@@ -63,7 +63,6 @@ interface ProductFormValues {
   size: string;
   description: string;
   price: string;
-  salePrice: string;
   categoryId: string;
   featured: boolean;
   isActive: boolean;
@@ -401,19 +400,6 @@ function ProductDialog({
                           />
                         </div>
 
-                        <div>
-                          <label className="mb-2 block text-sm font-medium text-[#4e3b31]">
-                            Sale Price
-                          </label>
-                          <input
-                            type="number"
-                            min="0"
-                            value={formValues.salePrice}
-                            onChange={(event) => onValueChange("salePrice", event.target.value)}
-                            className="w-full rounded-2xl border border-[#eadfd6] bg-[#fdfaf7] px-4 py-3 text-sm text-[#2f241f] outline-none transition focus:border-[#c96f4f] focus:ring-4 focus:ring-[#c96f4f]/10"
-                          />
-                        </div>
-
                         <div className="md:col-span-2">
                           <label className="mb-2 block text-sm font-medium text-[#4e3b31]">
                             Description
@@ -571,7 +557,6 @@ export default function AdminProducts() {
     size: "",
     description: "",
     price: "",
-    salePrice: "",
     categoryId: "",
     featured: false,
     isActive: true,
@@ -656,7 +641,6 @@ export default function AdminProducts() {
       size: product.size,
       description: product.description,
       price: String(product.price),
-      salePrice: product.salePrice === null ? "" : String(product.salePrice),
       categoryId: product.categoryId ? String(product.categoryId) : "",
       featured: product.featured,
       isActive: product.isActive,
@@ -692,7 +676,6 @@ export default function AdminProducts() {
       size: "",
       description: "",
       price: "",
-      salePrice: "",
       categoryId: "",
       featured: false,
       isActive: true,
@@ -758,7 +741,6 @@ export default function AdminProducts() {
         size: formValues.size.trim(),
         description: formValues.description.trim(),
         price: Number(formValues.price),
-        sale_price: formValues.salePrice ? Number(formValues.salePrice) : null,
         category_id: formValues.categoryId,
         featured: formValues.featured,
         is_active: formValues.isActive,
@@ -880,9 +862,6 @@ export default function AdminProducts() {
         cell: ({ row }) => (
           <div>
             <p className="text-sm font-semibold text-[#2f241f]">₹{row.original.price}</p>
-            {row.original.salePrice !== null && (
-              <p className="text-xs text-[#8a7668] line-through">₹{row.original.salePrice}</p>
-            )}
           </div>
         ),
       },

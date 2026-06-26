@@ -48,7 +48,6 @@ const buildProductPayload = (body) => ({
   size: body.size?.trim() || null,
   description: body.description?.trim() || null,
   price: parseNumber(body.price),
-  sale_price: parseNumber(body.sale_price),
   featured: parseBoolean(body.featured),
   is_active: body.is_active === undefined ? true : parseBoolean(body.is_active),
   category_id: body.category_id || null,

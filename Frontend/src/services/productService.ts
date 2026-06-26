@@ -23,7 +23,6 @@ export interface Product {
   size: string;
   description: string;
   price: number;
-  salePrice: number | null;
   featured: boolean;
   isActive: boolean;
   categoryId: number | string | null;
@@ -40,7 +39,6 @@ export interface ProductPayload {
   size: string;
   description: string;
   price: number;
-  sale_price: number | null;
   featured: boolean;
   is_active: boolean;
   category_id: number | string;
@@ -72,7 +70,6 @@ interface ProductPayloadResponse {
   size?: string | null;
   description?: string | null;
   price?: number | string | null;
-  sale_price?: number | string | null;
   featured?: boolean | string | number | null;
   is_active?: boolean | string | number | null;
   category_id?: number | string | null;
@@ -97,14 +94,6 @@ const toNumber = (value: number | string | null | undefined, fallback = 0) => {
   return Number.isNaN(parsed) ? fallback : parsed;
 };
 
-const toNullableNumber = (value: number | string | null | undefined) => {
-  if (value === "" || value === null || value === undefined) {
-    return null;
-  }
-
-  const parsed = Number(value);
-  return Number.isNaN(parsed) ? null : parsed;
-};
 
 const toBoolean = (value: boolean | string | number | null | undefined, fallback = false) => {
   if (value === null || value === undefined) {
@@ -137,7 +126,6 @@ const normalizeProduct = (product: ProductPayloadResponse): Product => ({
   size: product.size ?? "",
   description: product.description ?? "",
   price: toNumber(product.price),
-  salePrice: toNullableNumber(product.sale_price),
   featured: toBoolean(product.featured),
   isActive: toBoolean(product.is_active, true),
   categoryId: product.category_id ?? product.categories?.id ?? null,

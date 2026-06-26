@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Mail, Lock, ArrowLeft } from "lucide-react";
+import { Mail, Lock, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion";
 import axios from "axios";
 
@@ -31,6 +31,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -112,8 +113,9 @@ export default function AdminLogin() {
 
               <div className="flex items-center gap-3 rounded-2xl border px-4 py-3">
                 <Lock size={18} />
+
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   placeholder="********"
@@ -122,6 +124,16 @@ export default function AdminLogin() {
                   disabled={loading}
                   required
                 />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="text-gray-500 transition-colors hover:text-gray-700"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  disabled={loading}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
             </div>
 

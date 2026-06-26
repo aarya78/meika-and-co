@@ -29,7 +29,6 @@ interface ProductFormValues {
   size: string;
   description: string;
   price: string;
-  salePrice: string;
   categoryId: string;
   featured: boolean;
   isActive: boolean;
@@ -157,7 +156,6 @@ export default function AddProduct() {
     size: "",
     description: "",
     price: "",
-    salePrice: "",
     categoryId: "",
     featured: false,
     isActive: true,
@@ -295,7 +293,6 @@ export default function AddProduct() {
         size: formValues.size.trim(),
         description: formValues.description.trim(),
         price: Number(formValues.price),
-        sale_price: formValues.salePrice ? Number(formValues.salePrice) : null,
         category_id: formValues.categoryId,
         featured: formValues.featured,
         is_active: formValues.isActive,
@@ -459,27 +456,6 @@ export default function AddProduct() {
                         setFormValues((current) => ({ ...current, price: event.target.value }))
                       }
                       placeholder="1499"
-                      className="w-full bg-transparent py-3 pr-4 text-sm text-[#2f241f] outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-[#4e3b31]">
-                    Sale Price
-                  </label>
-                  <div className="flex items-center rounded-2xl border border-[#eadfd6] bg-[#fdfaf7]">
-                    <span className="flex h-11 w-11 items-center justify-center text-[#b46b4e]">
-                      <IndianRupee size={16} />
-                    </span>
-                    <input
-                      type="number"
-                      min="0"
-                      value={formValues.salePrice}
-                      onChange={(event) =>
-                        setFormValues((current) => ({ ...current, salePrice: event.target.value }))
-                      }
-                      placeholder="1299"
                       className="w-full bg-transparent py-3 pr-4 text-sm text-[#2f241f] outline-none"
                     />
                   </div>
@@ -712,11 +688,6 @@ export default function AddProduct() {
                   <p className="text-2xl font-bold text-[#c96f4f]">
                     {formValues.price ? `₹${formValues.price}` : "₹0"}
                   </p>
-                  {formValues.salePrice && (
-                    <span className="text-sm text-[#b0a298] line-through">
-                      ₹{formValues.salePrice}
-                    </span>
-                  )}
                 </div>
 
                 <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
