@@ -75,7 +75,10 @@ export default function ProductSection() {
         .map((category) => ({
           ...category,
           products: products.filter(
-            (product) => product.isActive && String(product.categoryId) === String(category.id),
+            (product) =>
+              product.isActive &&
+              product.featured === true &&
+              String(product.categoryId) === String(category.id),
           ),
         }))
         .filter((category) => category.products.length > 0),
