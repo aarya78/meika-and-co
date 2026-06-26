@@ -106,11 +106,15 @@ export default function ProductSection() {
             Our Collections
           </span>
 
-          <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-[#2D2D2D] sm:mt-6 sm:text-5xl">
+          <h2 className="mt-4 font-serif text-md font-semibold leading-tight text-[#2D2D2D] sm:mt-6 sm:text-5xl">
             Handmade Companions
             <br />
             Crafted With Love
           </h2>
+
+          <p className="mt-4 text-sm font-medium uppercase tracking-[0.22em] text-[#C96F4F] sm:text-base">
+            Bulk Orders &amp; Gifting
+          </p>
         </div>
 
         {groupedCollections.map((collection) => (

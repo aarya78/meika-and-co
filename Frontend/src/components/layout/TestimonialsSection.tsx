@@ -19,14 +19,14 @@ export default function TestimonialsSection() {
             Customer Stories
           </span>
 
-          <h2 className="mt-5 text-3xl font-bold leading-tight sm:mt-8 sm:text-4xl md:text-7xl">
+          <h2 className="mt-5 text-md font-bold leading-tight sm:mt-8 sm:text-md md:text-5xl">
             Loved By Families
             <span className="block bg-gradient-to-r from-pink-500 via-rose-500 to-orange-400 bg-clip-text text-transparent">
               Across India
             </span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-6 text-muted-foreground sm:mt-8 sm:text-lg sm:leading-8">
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-6 text-muted-foreground sm:mt-8 sm:text-md sm:leading-8">
             Every stitch carries a little love. Here’s what families say after
             welcoming Meika dolls into their homes.
           </p>

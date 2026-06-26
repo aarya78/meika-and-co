@@ -94,7 +94,7 @@ export function Footer() {
             </h2>
 
             <p className="mt-3 max-w-sm text-sm leading-6 text-[#7b685d] sm:mt-4 sm:leading-7">
-              Handmade dolls crafted with love, bringing warmth, comfort, and joy into every home.
+              Looking for bulk orders or gifts? Discover handcrafted dolls made with love for every occasion. 
             </p>
 
             <div className="mt-5 flex justify-center gap-3 md:justify-start sm:mt-6">
