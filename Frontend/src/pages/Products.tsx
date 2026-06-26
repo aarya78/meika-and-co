@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Search, Sparkles } from "lucide-react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Search } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 import { useCategories } from "@/hooks/useCategories";
 import { useProducts } from "@/hooks/useProducts";
-import { getPrimaryProductThumbnail } from "@/services/productService";
 import SEO from '@/components/SEO'
 import ProductCard from '@/components/ProductCard'
 

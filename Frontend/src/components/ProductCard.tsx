@@ -30,7 +30,7 @@ function ProductCardInner({ product }: Props) {
           </picture>
         ) : (
           <img
-            src={thumbnail.url}
+            src={thumbnail}
             alt={product.name}
             loading="lazy"
             decoding="async"
