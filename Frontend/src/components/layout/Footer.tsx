@@ -41,7 +41,7 @@ const linkItem: Variants = {
 
 const quickLinks = [
   { label: "About Us", to: "/about", type: "route" },
-  { label: "Collections", to: "/#collection", type: "anchor" },
+  { label: "Collections", to: "/products", type: "anchor" },
   { label: "Testimonials", to: "/#testimonials", type: "anchor" },
   { label: "Contact", to: "/contact", type: "anchor" },
 ];
@@ -143,14 +143,14 @@ export function Footer() {
               variants={staggerChildren}
             >
               {[
-                "Mini Buddies",
-                "Sleep Dino Collection",
-                "Lazy Jungle Series",
-                "Custom Dolls",
+                "Nursery Decor",
+                "Dolls",
+                "Animals",
+                "Dolls",
               ].map((item) => (
                 <motion.li key={item} variants={linkItem}>
                   <motion.a
-                    href="#"
+                    href="/products"
                     className="group inline-flex items-center gap-1 transition hover:text-[#c96f4f]"
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
@@ -237,9 +237,9 @@ export function Footer() {
               variants={staggerChildren}
             >
               {[
-                { icon: MapPin, text: settings?.site_name ? settings.site_name : "Bhopal, India" },
+                { icon: MapPin, text: "Raipur, Chhattigarh, India" },
                 { icon: Mail, text: settings?.email ?? "" },
-                { icon: MessageCircle, text: settings?.whatsapp_number ? "WhatsApp Inquiry" : "" },
+                { icon: MessageCircle, text: settings?.whatsapp_number ? `Whatsapp Enquiry - ${settings?.whatsapp_number}` : "" },
               ]
                 .filter((item) => item.text)
                 .map(({ icon: Icon, text }) => (
